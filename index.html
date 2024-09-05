@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Yoga Mat - Corporate Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .controls {
+            flex: 1;
+            text-align: left;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            margin-right: 20px;
+        }
+
+        .controls h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        .controls select, 
+        .controls button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .controls select:focus, 
+        .controls button:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .controls button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .controls button:hover {
+            background-color: #0056b3;
+        }
+
+        .pose-image {
+            margin-top: 20px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mat {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            width: 320px;
+            height: 420px;
+        }
+
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e9ecef;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            height: 60px;
+            width: 60px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Active styles for hands, feet, knees, and elbows */
+        .active-hand {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .active-foot {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .active-knee {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        .active-elbow {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mat {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Smart Yoga Mat - Virtual Interface</h1>
+</header>
+
+<div class="container">
+    <!-- Controls and Image Section -->
+    <div class="controls">
+        <h2>Select a Yoga Pose</h2>
+        <select id="asanaSelect" onchange="updateImage()">
+            <option value="mountain">Mountain Pose (Tadasana)</option>
+            <option value="warrior">Warrior Pose (Virabhadrasana)</option>
+            <option value="tree">Tree Pose (Vrikshasana)</option>
+            <option value="downward-dog">Downward-Facing Dog (Adho Mukha Svanasana)</option>
+            <option value="childs-pose">Child's Pose (Balasana)</option>
+            <option value="cobra">Cobra Pose (Bhujangasana)</option>
+            <option value="bridge">Bridge Pose (Setu Bandhasana)</option>
+        </select>
+        <button onclick="highlightAsana()">Apply Pose</button>
+
+        <!-- Yoga Pose Image -->
+        <img id="poseImage" class="pose-image" src="https://via.placeholder.com/300x400" alt="Yoga Asana">
+    </div>
+
+    <!-- Virtual Yoga Mat -->
+    <div class="mat" id="yogaMat">
+        <!-- 12 numbered cells -->
+        <div class="cell" id="cell1">1</div>
+        <div class="cell" id="cell2">2</div>
+        <div class="cell" id="cell3">3</div>
+        <div class="cell" id="cell4">4</div>
+        <div class="cell" id="cell5">5</div>
+        <div class="cell" id="cell6">6</div>
+        <div class="cell" id="cell7">7</div>
+        <div class="cell" id="cell8">8</div>
+        <div class="cell" id="cell9">9</div>
+        <div class="cell" id="cell10">10</div>
+        <div class="cell" id="cell11">11</div>
+        <div class="cell" id="cell12">12</div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Smart Yoga Mat</p>
+</footer>
+
+<script>
+    // Update image based on selected yoga pose
+    function updateImage() {
+        const selectedAsana = document.getElementById("asanaSelect").value;
+        const imageElement = document.getElementById("poseImage");
+
+        switch (selectedAsana) {
+            case 'mountain':
+                imageElement.src = "https://via.placeholder.com/300x400?text=Mountain+Pose";
+                imageElement.alt = "Mountain Pose (Tadasana)";
+                break;
+            case 'warrior':
+                imageElement.src = "https://via.placeholder.com/300x400?text=Warrior+Pose";
+                imageElement.alt = "Warrior Pose (Virabhadrasana)";
+                break;
+            case 'tree':
+                imageElement.src = "https://via.placeholder.com/300x400?text=Tree+Pose";
+                imageElement.alt = "Tree Pose (Vrikshasana)";
+                break;
+            case 'downward-dog':
+                imageElement.src = "https://via.placeholder.com/300x400?text=Downward-Facing+Dog";
+                imageElement.alt = "Downward-Facing Dog (Adho Mukha Svanasana)";
+                break;
+            case 'childs-pose':
+                imageElement.src = "https://via.placeholder.com/300x400?text=Child's+Pose";
+                imageElement.alt = "Child's Pose (Balasana)";
+                break;
+            case 'cobra':
+                imageElement.src = "https://via.placeholder.com/300x400?text=Cobra+Pose";
+                imageElement.alt = "Cobra Pose (Bhujangasana)";
+                break;
+            case 'bridge':
+                imageElement.src = "https://via.placeholder.com/300x400?text=Bridge+Pose";
+                imageElement.alt = "Bridge Pose (Setu Bandhasana)";
+                break;
+            default:
+                imageElement.src = "https://via.placeholder.com/300x400";
+                imageElement.alt = "Yoga Asana";
+                break;
+        }
+    }
+
+    // Function to highlight the correct spots on the mat for the selected yoga pose
+    function highlightAsana() {
+        resetMat();
+
+        const selectedAsana = document.getElementById("asanaSelect").value;
+
+        switch (selectedAsana) {
+            case 'mountain':
+                highlightMountainPose();
+                break;
+            case 'warrior':
+                highlightWarriorPose();
+                break;
+            case 'tree':
+                highlightTreePose();
+                break;
+            case 'downward-dog':
+                highlightDownwardDogPose();
+                break;
+            case 'childs-pose':
+                highlightChildsPose();
+                break;
+            case 'cobra':
+                highlightCobraPose();
+                break;
+            case 'bridge':
+                highlightBridgePose();
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Reset the mat to clear previous highlights
+    function resetMat() {
+        for (let i = 1; i <= 12; i++) {
+            document.getElementById("cell" + i).classList.remove("active-hand", "active-foot", "active-knee", "active-elbow");
+        }
+    }
+
+    // Highlight the Mountain Pose (Tadasana)
+    function highlightMountainPose() {
+        document.getElementById("cell5").classList.add("active-foot");
+        document.getElementById("cell2").classList.add("active-hand");
+        document.getElementById("cell8").classList.add("active-hand");
+    }
+
+    // Highlight the Warrior Pose (Virabhadrasana)
+    function highlightWarriorPose() {
+        document.getElementById("cell2").classList.add("active-hand");
+        document.getElementById("cell5").classList.add("active-foot");
+        document.getElementById("cell8").classList.add("active-foot");
+    }
+
+    // Highlight the Tree Pose (Vrikshasana)
+    function highlightTreePose() {
+        document.getElementById("cell5").classList.add("active-foot");
+        document.getElementById("cell2").classList.add("active-hand");
+    }
+
+    // Highlight the Downward-Facing Dog Pose (Adho Mukha Svanasana)
+    function highlightDownwardDogPose() {
+        document.getElementById("cell1").classList.add("active-hand");
+        document.getElementById("cell3").classList.add("active-hand");
+        document.getElementById("cell7").classList.add("active-foot");
+        document.getElementById("cell9").classList.add("active-foot");
+    }
+
+    // Highlight the Child's Pose (Balasana)
+    function highlightChildsPose() {
+        document.getElementById("cell4").classList.add("active-hand");
+        document.getElementById("cell5").classList.add("active-hand");
+        document.getElementById("cell6").classList.add("active-foot");
+        document.getElementById("cell7").classList.add("active-foot");
+    }
+
+    // Highlight the Cobra Pose (Bhujangasana)
+    function highlightCobraPose() {
+        document.getElementById("cell4").classList.add("active-elbow");
+        document.getElementById("cell5").classList.add("active-elbow");
+        document.getElementById("cell6").classList.add("active-foot");
+    }
+
+    // Highlight the Bridge Pose (Setu Bandhasana)
+    function highlightBridgePose() {
+        document.getElementById("cell4").classList.add("active-foot");
+        document.getElementById("cell5").classList.add("active-foot");
+        document.getElementById("cell6").classList.add("active-foot");
+    }
+</script>
+
+</body>
+</html>
